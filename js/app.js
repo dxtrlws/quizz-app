@@ -62,11 +62,12 @@ var state = {
     }
     ]   
 };
+
+// Variables
 var correct = 0;
 var incorrect = 0;
 var currentQuestion = 1;
 var currentQuestionIndex = 0;
-var $quiz = $('#quiz');
 var $jsImage = $('.js-image');
 var $choices = $('.choices');
 var $quizQuestion = $('.quizQuestion');
@@ -74,7 +75,7 @@ var $jsQuestionCount = $('.js-questionCount');
 var $jsScore = $('.js-score');
 
 
-
+// Renders quiz
 function renderQuiz() {
     renderQuestion(state, $quizQuestion);
     renderImage(state, $jsImage);
@@ -82,17 +83,20 @@ function renderQuiz() {
     renderScoreNum();
 }
 
+// Renders questions
 function renderQuestion(state, element) {
     var quizQuestion = '<h3>'+ state.questions[currentQuestionIndex].question + '</h3>';
     element.html(quizQuestion);
 
 }
 
+// Renders image
 function renderImage (state, element) {
     var quizImage ='<img src="'+state.questions[currentQuestionIndex].image+'">';
     element.html(quizImage);
 }
 
+// Renders choices 
 function renderChoices (state, element) {
     var choices = state.questions[currentQuestionIndex].choices.map(function(choice, index){
         return (
@@ -105,13 +109,14 @@ function renderChoices (state, element) {
     element.html(choices);
 }
 
+// Renders current question number and score
 function renderScoreNum () {
     $jsQuestionCount.html('Question: ' + currentQuestion);
     $jsScore.html('Correct ' + correct + ' Incorrect ' + incorrect);
 }
 
+// Checks answser and advances to next question
 function checkAnswer (state) {
-    debugger;
     var answer = $("input[name='user-answer']:checked").val();
     if (answer === state.questions[currentQuestionIndex].answer ){
         currentQuestionIndex ++;
@@ -124,8 +129,13 @@ function checkAnswer (state) {
     }
 }
 
-
-
+function renderFeedback(state, element) {
+    if (currentQuestion === 10){
+        //do something
+    } else {
+        renderQuiz();
+    }
+}
 
 
 //Event listeners
@@ -134,6 +144,7 @@ function formWatch (){
     $('#start').hide();
     $('#quiz').toggle();
     $('.divider').toggle();
+    $('#submit').toggle();
     renderQuiz() ;
    });
 
@@ -141,10 +152,10 @@ function formWatch (){
 
 function submitAnswer() {
     $('#submit').click(function(state){
-        // currentQuestionIndex ++;
-        // currentQuestion ++;
-        // renderQuiz();
-        checkAnswer(state);
+        currentQuestionIndex ++;
+        currentQuestion ++;
+        renderQuiz();
+        // checkAnswer(state);
     });
 }
 
