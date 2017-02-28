@@ -8,51 +8,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="container">
+        <div class="alertBox"></div>
 
-        <!--Keeps track of querstions and score-->
-        <div class="row">
-            <div class="col-md-6">
-
-            </div>
-            <div class="col-md-6">
-
-            </div>
-
+        <div id="start">
+            <h1>Welcome to the Star Wars Quiz</h1>
+            <img src="images/quizzStart.jpg">
+            <h3>Are you a true Star Wars fan?</h3>
+            <h3>Lets find out! Click the "Start" button to find out!</h3>
+            <button type="submit" class="btn btn-primary">Start</button>
         </div>
-        <hr>
-        <!--Holds image for each question-->
-        <div class="row">
-            <div class="col-md-12 js-image">
-
-            </div>
+        <div class="js-quizTracker">
+            <h4 class="js-questionCount"></h4>
+            <h4 class="js-score"></h4>
         </div>
-        <!--holds choices for each question-->
-        <div class="row">
-            <div class="col-md-12">
-                <ul class="js-choices">
-
-                </ul>
-            </div>
-
-
-
+        <hr class="divider">
+        <div id="quiz">
+            <div class="quizQuestion"></div>
+            <div class="js-image"></div>
+            <ul class="choices"></ul>
         </div>
-
-
-
-
-
+        <button type="button" id="submit" class="btn btn-primary">Submit</button>
 
     </div>
 
-
-    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/app.js"></script>
+
 </body>
 
 </html>
