@@ -27,6 +27,9 @@
     float: right;
     width: 50%;
 }
+#submit {
+    display:none;
+}
 
 .divider {
     clear: both;
