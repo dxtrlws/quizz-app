@@ -60,14 +60,15 @@ var state = {
         answer: "Medichlorians",
         image: "images/question10.jpg"
     }
-    ]   
+    ],
+    correct: 0,
+    incorrect: 0,
+    currentQuestion: 1,
+    currentQuestionIndex: 0,
+    lastQuestionAnswered: false
 };
 
 // Variables
-var correct = 0;
-var incorrect = 0;
-var currentQuestion = 1;
-var currentQuestionIndex = 0;
 var $jsImage = $('.js-image');
 var $choices = $('.choices');
 var $quizQuestion = $('.quizQuestion');
@@ -80,28 +81,29 @@ function renderQuiz() {
     renderQuestion(state, $quizQuestion);
     renderImage(state, $jsImage);
     renderChoices(state, $choices);
-    renderScoreNum();
+    renderScoreNum(state);
 }
 
 // Renders questions
 function renderQuestion(state, element) {
-    var quizQuestion = '<h3>'+ state.questions[currentQuestionIndex].question + '</h3>';
+    var quizQuestion = '<h3>'+ state.questions[state.currentQuestionIndex].question + '</h3>';
     element.html(quizQuestion);
 
 }
 
 // Renders image
 function renderImage (state, element) {
-    var quizImage ='<img src="'+state.questions[currentQuestionIndex].image+'">';
+    var quizImage ='<img src="'+state.questions[state.currentQuestionIndex].image+'">';
     element.html(quizImage);
 }
 
 // Renders choices 
 function renderChoices (state, element) {
-    var choices = state.questions[currentQuestionIndex].choices.map(function(choice, index){
+    var choices = state.questions[state.currentQuestionIndex].choices.map(function(choice, index){
+        debugger;
         return (
             '<li>' +
-            '<input type="radio" name="user-answer" value="' + index + '" required>' +
+            '<input type="radio" name="user-answer" value="' + choice + '" required>' +
             '<label>' + choice + '</label>' +
             '</li>'
         );
@@ -110,27 +112,29 @@ function renderChoices (state, element) {
 }
 
 // Renders current question number and score
-function renderScoreNum () {
-    $jsQuestionCount.html('Question: ' + currentQuestion);
-    $jsScore.html('Correct ' + correct + ' Incorrect ' + incorrect);
+function renderScoreNum (state) {
+    $jsQuestionCount.html('Question: ' + state.currentQuestion + ' /10');
+    $jsScore.html('Correct ' + state.correct + ' Incorrect ' + state.incorrect);
 }
 
 // Checks answser and advances to next question
-function checkAnswer (state) {
-    var answer = $("input[name='user-answer']:checked").val();
-    if (answer === state.questions[currentQuestionIndex].answer ){
-        currentQuestionIndex ++;
-        currentQuestion ++;
-        correct ++
+function checkAnswer (state, answer) {
+
+    if (answer === state.questions[state.currentQuestionIndex].answer ){
+        state.currentQuestionIndex ++;
+        state.currentQuestion ++;
+        state.correct ++
         renderQuiz();
     }else {
-        incorrect ++;
+        state.incorrect ++;
+        state.currentQuestionIndex ++;
+        state.currentQuestion ++;
         renderQuiz();
     }
 }
 
 function renderFeedback(state, element) {
-    if (currentQuestion === 10){
+    if (state.currentQuestion === 10){
         //do something
     } else {
         renderQuiz();
@@ -150,14 +154,27 @@ function formWatch (){
 
 }
 
-function submitAnswer() {
-    $('#submit').click(function(state){
-        currentQuestionIndex ++;
-        currentQuestion ++;
-        renderQuiz();
-        // checkAnswer(state);
-    });
-}
+$('form[name="quizQuestions"]').on('submit', function(e){
+    e.preventDefault();
+    var answer = $(event.currentTarget).find(':checked').val();
+    checkAnswer(state, answer);
+
+});
+
+// function submitAnswer() {
+//     $('#submit').click(function(event){
+//         event.preventDefault();
+//         if (state.currentQuestion < state.questions.length){
+//             state.currentQuestionIndex ++;
+//             state.currentQuestion ++;
+//             renderQuiz();
+//         } else {
+//
+//         }
+//
+//         // checkAnswer(state);
+//     });
+// }
 
 
 
