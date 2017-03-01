@@ -1,0 +1,42 @@
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    margin-top: 20px !important;
+}
+
+#quiz {
+    display: none;
+}
+
+.container {
+    width: 620px;
+    margin: 0 auto;
+}
+
+
+
+.js-questionCount {
+    width: 50%;
+    float:left;
+}
+
+.js-score {
+    text-align: right;
+    float: right;
+    width: 50%;
+}
+
+
+.divider {
+    clear: both;
+}
+
+ul {
+    margin-top: 10px;
+}
+.choices {
+    list-style-type: none;
+}
