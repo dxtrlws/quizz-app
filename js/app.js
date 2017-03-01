@@ -189,6 +189,9 @@ $('form[name="quizQuestions"]').on('submit', function(e){
     e.preventDefault();
     var answer = $(event.currentTarget).find(':checked').val();
     checkAnswer(state, answer);
+    $('.answerPage').show();
+
+
 
 });
 
@@ -202,14 +205,17 @@ $('.answerPage').on('click', 'button', function(){
     } else {
         $('.answerPage').hide();
         renderQuizFeedback(state, $('.quizFeedback'));
+
     }
 
 
 });
 
+//Start over
 $('.quizFeedback').on('click', 'button', function(){
    restartQuiz(state);
-    $('.quizFeedback').hide();
+    $('.quizFeedback').empty();
+    $('.answerPage').empty();
     $('#quiz').fadeIn('slow');
    renderQuiz();
 
