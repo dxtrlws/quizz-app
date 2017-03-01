@@ -43,7 +43,7 @@ var state = {
         image: "images/question7.jpg"
     },
     {
-        question: '"Whose "foul stench" did Leia say she recognized on the Death Star?"',
+        question: 'Whose "foul stench" did Leia say she recognized on the Death Star?',
         choices: ["Darth Vader", "The Emperor", "Dianoga", "Grand Moff Tarkin"],
         answer: "Grand Moff Tarkin",
         image: "images/question8.jpg"
