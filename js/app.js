@@ -76,6 +76,7 @@ var $jsQuestionCount = $('.js-questionCount');
 var $jsScore = $('.js-score');
 
 
+
 // Renders quiz
 function renderQuiz() {
     renderQuestion(state, $quizQuestion);
@@ -100,7 +101,7 @@ function renderImage (state, element) {
 // Renders choices 
 function renderChoices (state, element) {
     var choices = state.questions[state.currentQuestionIndex].choices.map(function(choice, index){
-        debugger;
+
         return (
             '<li>' +
             '<input type="radio" name="user-answer" value="' + choice + '" required>' +
@@ -121,34 +122,45 @@ function renderScoreNum (state) {
 function checkAnswer (state, answer) {
 
     if (answer === state.questions[state.currentQuestionIndex].answer ){
-        state.currentQuestionIndex ++;
         state.currentQuestion ++;
         state.correct ++
-        renderQuiz();
+        renderFeedback(state, answer)
+        // renderQuiz();
     }else {
         state.incorrect ++;
-        state.currentQuestionIndex ++;
         state.currentQuestion ++;
-        renderQuiz();
+        renderFeedback(state, answer)
+        // renderQuiz();
     }
 }
 
-function renderFeedback(state, element) {
-    if (state.currentQuestion === 10){
-        //do something
-    } else {
+function renderFeedback(state,answer ) {
+    $('#quiz').hide();
+    debugger;
+    if (answer === state.questions[state.currentQuestionIndex].answer) {
+
+        $('.answerPage').html('<h3>You\'ve answered the question correctly</h3>');
+        renderNextButton();
+        state.currentQuestionIndex ++;
+
         renderQuiz();
+    }else {
+        $('.answerPage').html('<h3>Sorry, but the correct answer was ' + state.questions[state.currentQuestionIndex].answer + '</h3>');
+        renderNextButton();
+        state.currentQuestionIndex ++;
+
     }
 }
 
+function renderNextButton () {
+    $('.answerPage').append('<button type="submit" id="nextQuestion" class="btn btn-primary">Next Question</button>');
+}
 
 //Event listeners
 function formWatch (){
    $('#start').on("click", "button", function(){
     $('#start').hide();
-    $('#quiz').toggle();
-    $('.divider').toggle();
-    $('#submit').toggle();
+    $('#quiz').fadeIn('slow');
     renderQuiz() ;
    });
 
@@ -161,24 +173,14 @@ $('form[name="quizQuestions"]').on('submit', function(e){
 
 });
 
-// function submitAnswer() {
-//     $('#submit').click(function(event){
-//         event.preventDefault();
-//         if (state.currentQuestion < state.questions.length){
-//             state.currentQuestionIndex ++;
-//             state.currentQuestion ++;
-//             renderQuiz();
-//         } else {
-//
-//         }
-//
-//         // checkAnswer(state);
-//     });
-// }
-
+$('.answerPage').on('click', 'button', function(){
+    $('.answerPage').empty();
+    $('#quiz').fadeIn('slow');
+    renderQuiz();
+});
 
 
 $(function () {
     formWatch();
-    submitAnswer();
+
 });
