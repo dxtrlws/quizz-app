@@ -12,7 +12,7 @@
 }
 
 .container {
-    width: 620px;
+    max-width: 620px;
     margin: 0 auto;
 }
 
@@ -39,4 +39,8 @@ ul {
 }
 .choices {
     list-style-type: none;
+}
+
+img {
+    width: 100%;
 }
